@@ -1,31 +1,13 @@
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  MutationFunction,
-} from '@tanstack/react-query'
-import { getFruits } from '../apis/fruits.ts'
+// client/hooks/useWeather.ts
+import { useQuery } from '@tanstack/react-query'
+import { getWeatherByCity } from '../apis/getWeather.ts'  
 
-export function useFruits() {
-  const query = useQuery({ queryKey: ['fruits'], queryFn: getFruits })
-  return {
-    ...query,
-    // Extra queries go here e.g. addFruit: useAddFruit()
-  }
-}
-
-export function useFruitsMutation<TData = unknown, TVariables = unknown>(
-  mutationFn: MutationFunction<TData, TVariables>,
-) {
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['fruits'] })
-    },
+export function useWeather(city: string) {
+  return useQuery({
+    queryKey: ['weather', city],
+    queryFn: () => getWeatherByCity(city),
+    enabled: !!city, 
   })
-
-  return mutation
 }
 
 // Query functions go here e.g. useAddFruit
