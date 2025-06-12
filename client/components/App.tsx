@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div>
-      <h1>🌦️ Weather App</h1>
+      <h1>🌦️ The Weather 🌦️ </h1>
 
       {/* Not logged in: Show only login button */}
       {!isAuthenticated && (

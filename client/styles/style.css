@@ -1,0 +1,25 @@
+body {
+  background-color: rgb(175, 158, 136);
+}
+
+.nav-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-button {
+  padding: 8px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.signed-in-user {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.nav-title {
+  margin-top: 20px;
+  font-size: 24px;
+}

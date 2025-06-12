@@ -1,12 +1,12 @@
+
 import { useAuth0 } from '@auth0/auth0-react'
 import { IfAuthenticated, IfNotAuthenticated } from './Authenticated.tsx'
-import { NavGroup, NavButton } from '../styles/styled.tsx'
 
 function Nav() {
   const { user, logout, loginWithRedirect } = useAuth0()
 
   const handleSignOut = () => {
-    logout({ logoutParams: { returnTo: window.location.origin } }) // 👈 important
+    logout({ logoutParams: { returnTo: window.location.origin } })
   }
 
   const handleSignIn = () => {
@@ -15,18 +15,18 @@ function Nav() {
 
   return (
     <>
-      <NavGroup>
+      <div className="nav-group">
         <IfAuthenticated>
-          <NavButton onClick={handleSignOut}>Sign out</NavButton>
-          {user && <p>Signed in as: {user.nickname || user.name}</p>}
+          <button className="nav-button" onClick={handleSignOut}>Sign out</button>
+          {user && <p className="signed-in-user">Signed in as: {user.nickname || user.name}</p>}
         </IfAuthenticated>
 
         <IfNotAuthenticated>
-          <NavButton onClick={handleSignIn}>Sign in</NavButton>
+          <button className="nav-button" onClick={handleSignIn}>Sign in</button>
         </IfNotAuthenticated>
-      </NavGroup>
+      </div>
 
-      <h1>Weather App</h1>
+      <h1 className="nav-title">Weather App</h1>
     </>
   )
 }
