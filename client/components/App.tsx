@@ -3,6 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import SearchWeather from './searchWeather'
 
 function App() {
+  
   const { isAuthenticated, isLoading, user, loginWithRedirect, logout } = useAuth0()
 
   if (isLoading) return <p>Loading...</p>

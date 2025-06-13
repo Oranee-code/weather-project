@@ -18,7 +18,7 @@ function Weather() {
   async function fetchWeather(city: string) {
     try {
       setError('')
-      // 1. Fetch coordinates from the geocoding API
+      // Fetch coordinates from the geocoding API
       const geoRes = await axios.get(
         `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
       )
@@ -30,7 +30,7 @@ function Weather() {
       }
       const { latitude, longitude, name } = location
 
-      // 2. Fetch weather using coordinates
+      //  Fetch weather using coordinates
       const weatherRes = await axios.get(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
       )

@@ -1,5 +1,6 @@
 body {
-  background-color: rgb(175, 158, 136);
+  background-color: #9cdbf4; /* Sky Blue */
+  min-height: 100vh;
 }
 
 .nav-group {

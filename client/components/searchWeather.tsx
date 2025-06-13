@@ -83,7 +83,7 @@ export default function SearchWeather() {
 
   return (
     <div style={{ maxWidth: 400, margin: 'auto' }}>
-      <h2>Search Weather</h2>
+      <h3>Search Weather</h3>
       <input
         type="text"
         placeholder="Enter city"
@@ -142,7 +142,7 @@ export default function SearchWeather() {
             {weather.hourly.time.slice(0, 6).map((time, index) => (
               <li key={time}>
                 {new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} :{' '}
-                {weather.hourly.temperature_2m[index]}°C, Wind: {weather.hourly.windspeed_10m[index]} km/h
+                {weather.hourly.temperature_2m[index]}°C | Wind: {weather.hourly.windspeed_10m[index]} km/h
               </li>
             ))}
           </ul>
@@ -159,15 +159,17 @@ export default function SearchWeather() {
                   })}
                 </strong>
                 :<br />
-                🌡️ {weather.daily.temperature_2m_min[index]}°C - {weather.daily.temperature_2m_max[index]}°C | 💨
-                Wind: {weather.daily.windspeed_10m_max[index]} km/h | ☁️ {weather.description} {/* img for Conditions */}
+                {/* img for Conditions */}
           {weather.hourly.weathercode !== undefined && (
   <img
     src={`/images/${imageMap[weather.hourly.weathercode[0]]}`}
     alt={weather.description}
-    style={{ width: '150px', marginTop: '10px' }}
+    style={{ width: '40px', marginTop: '5px' }}
   />
 )}
+                 {weather.daily.temperature_2m_min[index]}°C - {weather.daily.temperature_2m_max[index]}°C | 💨
+                Wind: {weather.daily.windspeed_10m_max[index]} km/h | {weather.description} 
+                
               </li>
             ))}
           </ul>
