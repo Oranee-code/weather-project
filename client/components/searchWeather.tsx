@@ -82,34 +82,23 @@ export default function SearchWeather() {
   }
 
   return (
-    <div style={{ maxWidth: 400, margin: 'auto' }}>
-      <h3>Search Weather</h3>
+    <div className="weather-container">
+      <h1>🔎</h1>
       <input
         type="text"
         placeholder="Enter city"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        style={{ width: '100%', padding: '8px' }}
+        style={{ width: '100%', padding: '15px' }}
       />
 
       {suggestions.length > 0 && (
-        <ul
-          style={{
-            listStyle: 'none',
-            padding: 0,
-            margin: 0,
-            border: '1px solid #ccc',
-            maxHeight: 150,
-            overflowY: 'auto',
-            cursor: 'pointer',
-          }}
-        >
+        <ul className="suggestions-list">
           {suggestions.map((city) => (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
             <li
               key={`${city.name}-${city.latitude}-${city.longitude}`}
               onClick={() => handleSelectCity(city)}
-              style={{ padding: '8px', borderBottom: '1px solid #eee', cursor: 'pointer' }}
             >
               {city.name}, {city.country}
             </li>
@@ -117,10 +106,10 @@ export default function SearchWeather() {
         </ul>
       )}
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
       {weather && (
-        <div style={{ marginTop: 20 }}>
+        <div className="weather-details">
           <h3>
             {weather.city}, {weather.country}
           </h3>
@@ -131,24 +120,28 @@ export default function SearchWeather() {
 
           {/* img for Conditions */}
           {weather.hourly.weathercode !== undefined && (
-  <img
-    src={`/images/${imageMap[weather.hourly.weathercode[0]]}`}
-    alt={weather.description}
-    style={{ width: '150px', marginTop: '10px' }}
-  />
-)}
+            <img
+              src={`/images/${imageMap[weather.hourly.weathercode[0]]}`}
+              alt={weather.description}
+              className="weather-icon-large"
+            />
+          )}
           <h4>Hourly Forecast:</h4>
-          <ul>
+          <ul className="forecast-list">
             {weather.hourly.time.slice(0, 6).map((time, index) => (
               <li key={time}>
-                {new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} :{' '}
-                {weather.hourly.temperature_2m[index]}°C | Wind: {weather.hourly.windspeed_10m[index]} km/h
+                {new Date(time).toLocaleTimeString([], {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}{' '}
+                : {weather.hourly.temperature_2m[index]}°C | Wind:{' '}
+                {weather.hourly.windspeed_10m[index]} km/h
               </li>
             ))}
           </ul>
 
           <h4>7-Day Forecast:</h4>
-          <ul>
+          <ul className="forecast-list">
             {weather.daily.time.map((date, index) => (
               <li key={date}>
                 <strong>
@@ -160,16 +153,17 @@ export default function SearchWeather() {
                 </strong>
                 :<br />
                 {/* img for Conditions */}
-          {weather.hourly.weathercode !== undefined && (
-  <img
-    src={`/images/${imageMap[weather.hourly.weathercode[0]]}`}
-    alt={weather.description}
-    style={{ width: '40px', marginTop: '5px' }}
-  />
-)}
-                 {weather.daily.temperature_2m_min[index]}°C - {weather.daily.temperature_2m_max[index]}°C | 💨
-                Wind: {weather.daily.windspeed_10m_max[index]} km/h | {weather.description} 
-                
+                {weather.daily.weathercode !== undefined && (
+                  <img
+                    src={`/images/${imageMap[weather.daily.weathercode[index]] || 'overcast.png'}`}
+                    alt={weather.description}
+                    className="weather-icon-small"
+                  />
+                )}
+                {weather.daily.temperature_2m_min[0]}°C -{' '}
+                {weather.daily.temperature_2m_max[0]}°C | Wind:{' '}
+                {weather.daily.windspeed_10m_max[0]} km/h |{' '}
+                {weather.description}
               </li>
             ))}
           </ul>

@@ -45,25 +45,38 @@ function Weather() {
   if (!isAuthenticated) return <p>You must be logged in to view this page.</p>
 
   return (
-    <div>
+    <div className="city-search-container">
       <h2>Hello, {user?.name}</h2>
-      <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+      <button
+        onClick={() =>
+          logout({ logoutParams: { returnTo: window.location.origin } })
+        }
+      >
         Log out
       </button>
 
       <div>
-        <h3>Search City:</h3>
-        <input
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter city"
-        />
-        <button onClick={() => fetchWeather(city)}>Get Weather</button>
-      </div>
+      <h3>Search City:</h3>
+      {/* Added label linked to input via htmlFor and id */}
+      <label htmlFor="city-input" className="visually-hidden">
+        Enter city
+      </label>
+      <input
+        id="city-input"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+        placeholder="Enter city"
+      />
+      <button onClick={() => fetchWeather(city)}>Get Weather</button>
+    </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      {temperature !== null && <p>Current temperature in {city}: {temperature}°C</p>}
+      {temperature !== null && (
+        <p className="temperature-display">
+          Current temperature in {city}: {temperature}°C
+        </p>
+      )}
     </div>
   )
 }
